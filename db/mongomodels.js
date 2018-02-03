@@ -1,3 +1,8 @@
+let skip_if_empty = function(value){
+	if(value == null || (typeof value === 'string' && value.length === 0)) return undefined;
+	else                                                                   return value;
+};
+
 module.exports = function(mongoose){
     var Schema = mongoose.Schema;
 
@@ -8,18 +13,17 @@ module.exports = function(mongoose){
     });
 
     var User = new Schema({
-        nickname: String,
-        email: String,
-        password: String,
-        telegram_id: String,
+        nickname: {type: String, unique: true, required: true},
+        password: {type: String, required: true},
+        email: {type: String, unique: true, set: skip_if_empty},
+        telegram_id: {type: String, set: skip_if_empty},
         puns: [Puns]
     });
 
     // Model just the user.
-    mongoose.model('User', User);
+    var UserModel = mongoose.model('User', User);
 
     return{
-        User: User,
-        Puns: Puns
+        User: UserModel
     };
 };

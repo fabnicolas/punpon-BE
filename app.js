@@ -3,7 +3,7 @@ var bodyparser = require('body-parser');
 var cookieparser = require('cookie-parser');
 
 var routes = require('./routes');
-var connection = require('./db/connection.js');
+var connection = require('./db/connection');
 connection.initConnection();
 
 
@@ -26,4 +26,4 @@ routes.configure(app);
 
 
 
-module.exports = app
+module.exports = app;
