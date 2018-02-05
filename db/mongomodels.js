@@ -7,9 +7,10 @@ module.exports = function(mongoose){
     var Schema = mongoose.Schema;
 
     // Puns are embedded inside User.
-    var Puns = new Schema({
+    var Pun = new Schema({
         category: String,
-        text: String
+        text: String,
+        is_approved: Boolean
     });
 
     var User = new Schema({
@@ -17,13 +18,15 @@ module.exports = function(mongoose){
         password: {type: String, required: true},
         email: {type: String, unique: true, set: skip_if_empty},
         telegram_id: {type: String, set: skip_if_empty},
-        puns: [Puns]
+        puns: [{type: Schema.Types.ObjectId, ref: 'Pun'}]
     });
 
-    // Model just the user.
+    // Models
+    var PunModel = mongoose.model('Pun', Pun);
     var UserModel = mongoose.model('User', User);
 
     return{
+        Pun: PunModel,
         User: UserModel
     };
 };

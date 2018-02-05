@@ -31,5 +31,13 @@ module.exports = {
                 });
             });
         });
+
+        app.post("/bcrypt/test", function(req, res){
+            var encryptedPassword = require('./models/auth').encryptPassword(req.body.password);
+            res.send({
+                password: req.body.password,
+                generated: encryptedPassword
+            });
+        });
     }
 };
