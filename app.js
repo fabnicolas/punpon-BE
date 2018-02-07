@@ -21,9 +21,9 @@ app.use(session({
   secret: config.secret_session_key,
   cookie: {
     httpOnly: true,
-    secure: true
+    secure: false
   },
-  resave: true,
+  resave: false,
   saveUninitialized: false
 }));
 app.use(function printSession(req, res, next) {
