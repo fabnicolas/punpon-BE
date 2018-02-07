@@ -18,7 +18,7 @@ function Connection(){
     this.testConnection = function(res){
         if(this.con_type==="nosql")
             this.acquire(function (mongoose, mongomodels) {
-                mongomodels.User.find({email: "finalgalaxy@gmail.com"}, function(err, users) {
+                mongomodels.User.find({}, function(err, users) {
                     if(err){
                         res.send({status: 1, message: err});
                     }else{
